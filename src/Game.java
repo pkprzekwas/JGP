@@ -2,6 +2,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable{
 	/**
@@ -12,7 +13,7 @@ public class Game extends Canvas implements Runnable{
 	public static final int WIDTH = 800, HEIGHT = 600;
 	private Thread thread;
 	private boolean running;
-	
+	private Random rand;
 	private Handler handler;
 	private Properties properties;
 	private Spawn spawner;
@@ -23,6 +24,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public Game(){
 		// Creating our handler to add objects
+		rand = new Random();
 		handler = new Handler();
 		properties = new Properties();
 		this.addKeyListener(new KeyInput(handler, properties));
@@ -58,8 +60,8 @@ public class Game extends Canvas implements Runnable{
 		 */
 		this.requestFocus();
 		long lastTime = System.nanoTime();
-		double amountOfTicks = 60.0;
-		double ns = 1000000000 / amountOfTicks;
+		double amountOflogics = 60.0;
+		double ns = 1000000000 / amountOflogics;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
 		int frames = 0;
@@ -68,7 +70,7 @@ public class Game extends Canvas implements Runnable{
 			delta += (now - lastTime) / ns;
 			lastTime = now;
 			while(delta >= 1){
-				tick();
+				logic();
 				delta--;
 			}
 			if(running)
@@ -84,13 +86,13 @@ public class Game extends Canvas implements Runnable{
 		stop();
 	}
 	
-	private void tick(){
-		handler.tick();
+	private void logic(){
+		handler.logic();
 		if(gameState == STATE.Game)
 		{
 			boolean saved = false;
-			properties.tick();
-			spawner.tick();
+			properties.logic();
+			spawner.logic();
 			if(properties.DAMAGE >= 100){
 				// Game Over
 				handler.clearObjects();
@@ -110,7 +112,7 @@ public class Game extends Canvas implements Runnable{
 				|| gameState == STATE.Help
 				|| gameState == STATE.End
 				|| gameState == STATE.Setup){ 
-			menu.tick();
+			menu.logic();
 		}
 	}
 	
@@ -132,7 +134,11 @@ public class Game extends Canvas implements Runnable{
 		
 		if(gameState == STATE.Game)
 		{
-			properties.render(g);		
+			properties.render(g);
+			g.setColor(Color.lightGray);
+			for(int i=0; i<100; i++){
+				g.fillOval(rand.nextInt(Game.WIDTH), rand.nextInt(Game.HEIGHT), 2, 2);
+			}
 		}else if(gameState == STATE.Menu
 				|| gameState == STATE.End
 				|| gameState == STATE.Help

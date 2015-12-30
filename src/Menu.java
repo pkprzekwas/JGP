@@ -40,7 +40,7 @@ public class Menu extends MouseAdapter {
 						Game.HEIGHT/2-32, ID.Player, handler, properties));
 				handler.addObject(new Trophy(r.nextInt(Game.WIDTH-64),
 						r.nextInt(Game.HEIGHT-64), ID.Trophy));
-				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH-64),
+				handler.addObject(new FirstFoe(r.nextInt(Game.WIDTH-64),
 						r.nextInt(Game.HEIGHT-64), ID.BasicEnemy, handler));
 			}
 			
@@ -65,18 +65,18 @@ public class Menu extends MouseAdapter {
 		
 		if(Game.gameState == STATE.End){
 			// Try Again button
-			if(mouseIn(mouseX, mouseY, 260, 400, 300, 64)){
+			if(mouseIn(mouseX, mouseY, 260, 410, 300, 64)){
 				Game.gameState = STATE.Game;
 				handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, handler, properties));
 				handler.addObject(new Trophy(r.nextInt(Game.WIDTH-64),r.nextInt(Game.HEIGHT-64), ID.Trophy));
-				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH-64),r.nextInt(Game.HEIGHT-64), ID.BasicEnemy, handler));
+				handler.addObject(new FirstFoe(r.nextInt(Game.WIDTH-64),r.nextInt(Game.HEIGHT-64), ID.BasicEnemy, handler));
 				properties.DAMAGE = 0;
 				properties.setPoints(0);
 				properties.startTimer();	
 				properties.setLevel(1);
 			}
 			// Quit button
-			if(mouseIn(mouseX, mouseY, 260, 450, 300, 64)){
+			if(mouseIn(mouseX, mouseY, 670, 420, 128, 128)){
 				System.exit(1);
 			}
 		}
@@ -94,7 +94,7 @@ public class Menu extends MouseAdapter {
 		}else return false;
 	}
 	
-	public void tick(){
+	public void logic(){
 	}
 	
 	public void render(Graphics g){
@@ -162,7 +162,7 @@ public class Menu extends MouseAdapter {
 			Font font3 = new Font("arial", 1, 30);
 			
 			g.setFont(font);
-			g.setColor(Color.red);
+			g.setColor(Color.lightGray);
 			g.drawString("Przegra³eœ!", 275, 110);
 			
 			g.setFont(font3);
@@ -173,7 +173,7 @@ public class Menu extends MouseAdapter {
 				g.setColor(Color.green);
 			}
 			g.drawString("Twój wynik:   " + properties.score(), 180, 200);
-			g.setColor(Color.CYAN);
+			g.setColor(Color.darkGray);
 			g.drawString("Najlepszy wynik:   " + data.returnBestScore()[1], 180, 250);
 			g.drawString("Najlepszy gracz " + data.returnBestScore()[0], 180, 290);
 			if(Integer.parseInt(data.returnBestScore()[1]) == properties.score()){
@@ -183,12 +183,10 @@ public class Menu extends MouseAdapter {
 			
 			g.setColor(Color.lightGray);
 			g.setFont(font2);
-			g.drawString("Jeszcze raz", 300, 415);
-			g.drawRect(260, 370, 300, 64);
+			g.drawString("Jeszcze raz", 300, 455);
 			
-			g.setFont(font2);
-			g.drawString("Wyjœcie", 335, 495);
-			g.drawRect(260, 450, 300, 64);
+			// Exit image
+			g.drawImage(exitImg, 670, 420, 128, 128, null);
 		}
 	}
 }

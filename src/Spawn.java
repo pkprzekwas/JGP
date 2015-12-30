@@ -14,7 +14,7 @@ public class Spawn {
 		properties.startTimer();
 	}
 	
-	public void tick(){
+	public void logic(){
 		if(properties.getPoints() >= 5){
 			properties.setPoints(0);
 			properties.setLevel(properties.getLevel()+1);
@@ -22,19 +22,19 @@ public class Spawn {
 		}
 
 		if(properties.getLevel()==2 && trigger){
-			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH-64),
+			handler.addObject(new FirstFoe(r.nextInt(Game.WIDTH-64),
 					r.nextInt(Game.HEIGHT-64), ID.BasicEnemy, handler));
 			trigger = false;
 		}else if (properties.getLevel()==3 && trigger){
-			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH-64),
+			handler.addObject(new FirstFoe(r.nextInt(Game.WIDTH-64),
 					r.nextInt(Game.HEIGHT-64), ID.BasicEnemy, handler));
 			trigger = false;
 		}else if (properties.getLevel()==4 && trigger){
-			handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH-64),
+			handler.addObject(new SecondFoe(r.nextInt(Game.WIDTH-64),
 					r.nextInt(Game.HEIGHT-64), ID.FastEnemy, handler));
 			trigger = false;
 		}else if (properties.getLevel()==5 && trigger){
-			handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH-64),
+			handler.addObject(new AIFoe(r.nextInt(Game.WIDTH-64),
 					r.nextInt(Game.HEIGHT-64), ID.SmartEnemy, handler));	
 			trigger = false;
 		}

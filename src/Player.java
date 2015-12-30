@@ -14,7 +14,7 @@ public class Player extends GameObject{
 	private Random r = new Random();
 	private Handler handler;
 	private Properties properties;
-	private Image h1 = new ImageIcon("Textures/h1.png").getImage();
+	private Image hero = new ImageIcon("Textures/hero.png").getImage();
 	
 	public Player(float x, float y, ID id, Handler handler, Properties properties) {
 		super(x, y, id);
@@ -23,7 +23,7 @@ public class Player extends GameObject{
 	}
 	
 	public Rectangle getBounds(){
-		return new Rectangle((int)x, (int)y, 32, 32);
+		return new Rectangle((int)x, (int)y, 38, 50);
 	}
 	
 	private void collision(){
@@ -49,12 +49,12 @@ public class Player extends GameObject{
 	}
 
 	@Override
-	public void tick() {
+	public void logic() {
 		x += velX;
 		y += velY;
-		
-		x = Game.clamper(x, 0, Game.WIDTH-38);
-		y = Game.clamper(y, 0, Game.HEIGHT-60);
+		 
+ 		x = Game.clamper(x, -5, Game.WIDTH-42 );
+		y = Game.clamper(y, -10 , Game.HEIGHT-80);
 		
 		collision();
 	}
@@ -63,9 +63,8 @@ public class Player extends GameObject{
 	public void render(Graphics g) {
 		
 		Graphics2D g2d = (Graphics2D)g;
-		//g2d.setColor(Color.white);
-		g2d.drawImage(h1,(int)x,(int)y,null);
-		//g.fillRect((int)x, (int)y, 32, 32);
+		g2d.drawImage(hero,(int)x,(int)y,null);
+
 
 	}
 	

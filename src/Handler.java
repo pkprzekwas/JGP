@@ -7,11 +7,11 @@ public class Handler {
 	 */
 	LinkedList<GameObject> object = new LinkedList<GameObject>(); 
 	
-	public void tick(){
+	public void logic(){
 		// Iterates through all objects and execute theirs logic
 		for(int i = 0; i < object.size(); i++){
 			GameObject tempObject = object.get(i);
-			tempObject.tick();
+			tempObject.logic();
 		}
 	}
 	

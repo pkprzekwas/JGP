@@ -34,10 +34,20 @@ public class DataFormat{
     	return username + ", " + totalScore + ", " + blowTime + ", " + totalTime + ", " + timeDate + ";";
     }
     
+    /**
+     * Adds 
+     * @param record
+     */
     public void addReadRecord(String record){
     	records.add(record);
     }
     
+    /**
+     * Takes LinkedList of records, chooses record with best score and returns it as a list of Strings.
+     * Record has format (String[4]):
+     * | [0]User name | [1]Score | [2]Blow Time | [3]Total time | [4]Date |
+     * @return
+     */
     public String[] returnBestScore(){
     	
     	String[] bestScore = new String[5];
@@ -50,22 +60,7 @@ public class DataFormat{
     			best = Integer.parseInt(score);
     			bestScore = parts;
     		} 		
-			/*
-    		String username = parts[0];
-    		String blowTime = parts[2];
-    		String totalTime = parts[3];
-    		String date = parts[4];
-    		System.out.println("Name: " + username + " Score: " + score 
-    				+ " Blow Time:  "+ blowTime + " Total: " + totalTime + " Date: " + date);
-			 */
     	}
-    	String username = bestScore[0];
-		String score = bestScore[1];
-		String blowTime = bestScore[2];
-		String totalTime = bestScore[3];
-		String date = bestScore[4];
-		//System.out.println("|Name: " + username + " | Score: " + score 
-		//		+ " | Blow Time:  "+ blowTime + " | Total: " + totalTime + " | Date: " + date);
     	return bestScore;
     }
 

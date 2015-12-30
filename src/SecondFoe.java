@@ -5,26 +5,26 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-public class BasicEnemy extends GameObject {
+public class SecondFoe extends GameObject {
 	
 	private Handler handler;
-	private Image h2 = new ImageIcon("Textures/h2.png").getImage();
+	private Image h1 = new ImageIcon("Textures/h1.png").getImage();
 	
-	public BasicEnemy(float x, float y, ID id, Handler handler) {
+	public SecondFoe(float x, float y, ID id, Handler handler) {
 		super(x, y, id);
 		
 		this.handler = handler;
 		
-		velX = 5;
-		velY = 5;
+		velX = 3;
+		velY = 9;
 	}
 	
 	public Rectangle getBounds(){
-		return new Rectangle((int)x, (int)y, 28, 28);
+		return new Rectangle((int)x, (int)y, 32, 32);
 	}
 
 	@Override
-	public void tick() {
+	public void logic() {
 		x += velX;
 		y += velY;
 		
@@ -35,10 +35,7 @@ public class BasicEnemy extends GameObject {
 
 	@Override
 	public void render(Graphics g) {
-		//g.setColor(Color.blue);
-		//g.fillRect((int)x, (int)y, 32, 32);
-		g.drawImage(h2,(int)x,(int)y,null);
-
+		g.drawImage(h1,(int)x,(int)y,null);
 	}
 
 }

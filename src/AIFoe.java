@@ -5,13 +5,20 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-public class SmartEnemy extends GameObject {
+public class AIFoe extends GameObject {
 	
 	private Handler handler;
 	private GameObject player;
 	private Image h3 = new ImageIcon("Textures/h3.png").getImage();
 	
-	public SmartEnemy(float x, float y, ID id, Handler handler) {
+	/**
+	 * Class constructor where we initialize object coordinates, ID and handler.
+	 * @param x
+	 * @param y
+	 * @param id
+	 * @param handler
+	 */
+	public AIFoe(float x, float y, ID id, Handler handler) {
 		super(x, y, id);
 		
 		this.handler = handler;
@@ -21,12 +28,16 @@ public class SmartEnemy extends GameObject {
 		}
 	}
 	
+	/**
+	 * Returns borders of our object. 
+	 * We use this method later to detect collisions using intersection.
+	 */
 	public Rectangle getBounds(){
 		return new Rectangle((int)x, (int)y, 28, 28);
 	}
 
 	@Override
-	public void tick(){
+	public void logic(){
 		x += velX;
 		y += velY;
 		

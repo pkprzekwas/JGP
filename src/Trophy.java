@@ -18,7 +18,7 @@ public class Trophy extends GameObject {
 	}
 
 	@Override
-	public void tick() {
+	public void logic() {
 	}
 
 	@Override

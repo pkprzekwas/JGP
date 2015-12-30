@@ -14,7 +14,7 @@ public abstract class GameObject {
 		this.y = y;
 		this.id = id;
 	}
-	public abstract void tick();
+	public abstract void logic();
 	public abstract void render(Graphics g);
 	public abstract Rectangle getBounds();
 	

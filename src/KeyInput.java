@@ -3,6 +3,11 @@ import java.awt.event.KeyEvent;
 
 import javax.annotation.Resource;
 
+/**
+ * Class of which main task is to handle all keyboard input to our game.
+ * @author Patryk
+ *
+ */
 public class KeyInput extends KeyAdapter{
 	
 	private Handler handler;
@@ -13,7 +18,11 @@ public class KeyInput extends KeyAdapter{
 	private boolean startBlow = true;
 	private int signCounter = 0;
 
-	
+	/**
+	 * Constructor.
+	 * @param handler - game handler
+	 * @param properties - game properties
+	 */
 	public KeyInput(Handler handler, Properties properties){
 		this.handler = handler;
 		this.properties = properties;
@@ -25,6 +34,10 @@ public class KeyInput extends KeyAdapter{
 		keyDown[3] = false;
 	}
 	
+	/**
+	 * Defines object reaction for keyboard pressing.
+	 * Handles nickname input in the game setup.
+	 */
 	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();
 		if(Game.gameState == STATE.Setup && !isNamed){
@@ -61,6 +74,10 @@ public class KeyInput extends KeyAdapter{
 		}
 	}
 	
+	/**
+	 * Defines object reaction for keyboard releasing.
+	 * Handles nickname input in the game setup.
+	 */
 	public void keyReleased(KeyEvent e){
 		int key = e.getKeyCode();
 		

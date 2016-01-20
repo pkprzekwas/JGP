@@ -4,10 +4,14 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
 
+/**
+ *Main class of our game. Here objects such as Handler, Frame, Spawner, Properties and Menu
+ *are being initialized.
+ * @author Patryk Przekwas
+ *
+ */
 public class Game extends Canvas implements Runnable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
 	public static final int WIDTH = 800, HEIGHT = 600;
@@ -22,8 +26,10 @@ public class Game extends Canvas implements Runnable{
 	
 	public static STATE gameState = STATE.Setup;
 	
+	/**
+	 * Game constructor in which we initialize Handler, Frame, Spawner, Properties, DataFormat and Menu.
+	 */
 	public Game(){
-		// Creating our handler to add objects
 		rand = new Random();
 		handler = new Handler();
 		properties = new Properties();
@@ -32,18 +38,22 @@ public class Game extends Canvas implements Runnable{
 				properties.getGameTime(), properties.getBlowTime(), properties.score());
 		menu = new Menu(handler, properties, data); 
 		this.addMouseListener(menu);
-		
 		new Frame(WIDTH, HEIGHT, "Pixel", this);
-		
 		spawner = new Spawn(handler, properties);
 	}
 
+	/**
+	 * Thread start.
+	 */
 	public synchronized void start(){
 		thread = new Thread(this);
 		thread.start();
 		running = true;
 	}
 	
+	/**
+	 * Thread stop.
+	 */
 	public synchronized void stop(){
 		try {
 			thread.join();
@@ -53,11 +63,11 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 	
+	/**
+	 * Main game loop - popular pattern.
+	 */
 	@Override
 	public void run() {
-		/**
-		 * Main loop of game. Popular pattern. Magic!
-		 */
 		this.requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOflogics = 60.0;
@@ -86,6 +96,11 @@ public class Game extends Canvas implements Runnable{
 		stop();
 	}
 	
+	/**
+	 * All logic operations are being conducted here.
+	 * Depends on game status that is set at the moment.
+	 * At end state file save and read operations are being called.
+	 */
 	private void logic(){
 		handler.logic();
 		if(gameState == STATE.Game)
@@ -93,7 +108,7 @@ public class Game extends Canvas implements Runnable{
 			boolean saved = false;
 			properties.logic();
 			spawner.logic();
-			if(properties.DAMAGE >= 100){
+			if(Properties.DAMAGE >= 100){
 				// Game Over
 				handler.clearObjects();
 				gameState = STATE.End;
@@ -116,6 +131,9 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 	
+	/**
+	 * Renders graphics depends on game status.
+	 */
 	private void render(){
 		BufferStrategy bs = this.getBufferStrategy();
 		
@@ -149,6 +167,13 @@ public class Game extends Canvas implements Runnable{
 		bs.show();
 	}
 	
+	/**
+	 * Simple method to control range of objects
+	 * @param val - current value
+	 * @param min - minimum value
+	 * @param max - maximum value
+	 * @return - value or maximum/minimum if expected
+	 */
 	public static float clamper(float val, float min, float max){
 		if(val >= max) 
 			return max;
@@ -158,6 +183,10 @@ public class Game extends Canvas implements Runnable{
 			return val;
 	}
 	
+	/**
+	 * Main method - no need to explain.
+	 * @param args
+	 */
 	public static void main(String args[]){
 		new Game();
 	}

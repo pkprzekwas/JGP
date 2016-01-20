@@ -11,7 +11,7 @@ import java.util.Scanner;
  * The main task for this class is to generate and store data. 
  * Moreover it draws health bar, player name, total time, score 
  * and current level.
- * @author Patryk
+ * @author Patryk Przekwas
  *
  */
 public class Properties {
@@ -74,7 +74,7 @@ public class Properties {
 	
 	/**
 	 * Getter for user name.
-	 * @return
+	 * @return user nickname
 	 */
 	public String getUserName(){
 		return userName;
@@ -82,7 +82,7 @@ public class Properties {
 	
 	/**
 	 * Counts score basing on points and level
-	 * @return
+	 * @return score
 	 */
 	public int score(){
 		return this.points + this.level*10;
@@ -90,7 +90,7 @@ public class Properties {
 	
 	/**
 	 * Getter for level.
-	 * @return
+	 * @return level
 	 */
 	public int getLevel(){
 		return level;
@@ -98,7 +98,7 @@ public class Properties {
 	
 	/**
 	 * Setter for level.
-	 * @param name
+	 * @param level
 	 */
 	public void setLevel(int level){
 		this.level = level;
@@ -106,7 +106,7 @@ public class Properties {
 	
 	/**
 	 * Getter for points.
-	 * @return
+	 * @return points
 	 */
 	public int getPoints(){
 		return points;
@@ -114,7 +114,7 @@ public class Properties {
 	
 	/**
 	 * Setter for points.
-	 * @param name
+	 * @param points
 	 */
 	public void setPoints(int points){
 		this.points = points;
@@ -136,7 +136,7 @@ public class Properties {
 	
 	/**
 	 * Returns current game time.
-	 * @return
+	 * @return current time
 	 */
 	public long getCurrentGameTime(){
 		return (System.currentTimeMillis() - startTime)/1000;
@@ -144,7 +144,7 @@ public class Properties {
 	
 	/**
 	 * Time value of game time in seconds.
-	 * @return
+	 * @return game time
 	 */
 	public int getGameTime(){
 		return (int)(this.stopTime - this.startTime)/1000;
@@ -166,16 +166,14 @@ public class Properties {
 	
 	/**
 	 * Time value of blow interval in seconds. It appends blowing when we blow.
-	 * @return
 	 */
 	public void countBlowInterval(){
 		this.blowIvterval = this.blowIvterval + (this.stopBlow - this.startBlow);
-
 	}
 	
 	/**
 	 * Returns total time of blowing in seconds.
-	 * @return
+	 * @return final blow time
 	 */
 	public int getBlowTime(){
 		return (int)this.blowIvterval/1000;

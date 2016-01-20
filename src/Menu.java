@@ -8,8 +8,11 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
-
-
+/**
+ * Menu class. Displays different output depending on game status.
+ * @author Patryk Przekwas
+ *
+ */
 public class Menu extends MouseAdapter {
 	
 	private Handler handler;
@@ -20,12 +23,21 @@ public class Menu extends MouseAdapter {
 	private Image backBtn = new ImageIcon("Textures/backBtn.png").getImage();
 	private Image logo = new ImageIcon("Textures/logo.png").getImage();
 
+	/**
+	 * Constructor
+	 * @param handler - game handler
+	 * @param properties - game properties
+	 * @param data
+	 */
 	public Menu(Handler handler, Properties properties, DataFormat data){
 		this.handler = handler;
 		this.properties = properties;
 		this.data = data;
 	}
 
+	/**
+	 * Affect buttons click behavior in specific places (when cursor on object)
+	 */
 	public void mousePressed(MouseEvent e){
 		
 		int mouseX = e.getX();
@@ -82,10 +94,16 @@ public class Menu extends MouseAdapter {
 		}
 	}
 	
-	public void mouseReleased(MouseEvent e){
-		
-	}
-		
+	/**
+	 * Determines if cursor is on demanded position of frame
+	 * @param mouseX - x coordinate of cursor
+	 * @param mouseY - y coordinate of cursor
+	 * @param x - demanded position corner x coordinate
+	 * @param y - demanded position corner y coordinate
+	 * @param width - width of demanded position
+	 * @param height - height of demanded position
+	 * @return boolean which states if cursor on or out of area
+	 */
 	private boolean mouseIn(int mouseX, int mouseY, int x, int y, int width, int height){
 		if(mouseX > x && mouseX < x+width){
 			if(mouseY > y && mouseY < y+height){ 
@@ -94,9 +112,16 @@ public class Menu extends MouseAdapter {
 		}else return false;
 	}
 	
+	/**
+	 * For now empty.
+	 */
 	public void logic(){
 	}
 	
+	/**
+	 * Renders different screens depending on game status.
+	 * @param g
+	 */
 	public void render(Graphics g){
 		
 		if(Game.gameState == STATE.Setup){
@@ -139,6 +164,7 @@ public class Menu extends MouseAdapter {
 			Font font = new Font("arial", 1, 50);
 			Font font2 = new Font("arial", 1, 20);
 			Font font3 = new Font("arial", 1, 30);
+			Font font4 = new Font("arial", 1, 10);
 			
 			g.setFont(font);
 			g.setColor(Color.white);
@@ -155,6 +181,13 @@ public class Menu extends MouseAdapter {
 			g.setFont(font2);
 			g.setColor(Color.darkGray);
 			g.drawString("(docelowo urz¹dzenie E-dmuchawka)", 420, 550);
+			
+			g.setFont(font4);
+			g.setColor(Color.lightGray);
+			g.drawString("Creative Commons Licence:", 10, 535);
+			g.setColor(Color.darkGray);
+			g.drawString("logomakr.com", 10, 550);
+			g.drawString("freepik..com", 10, 560);
 			
 		}else if(Game.gameState == STATE.End){
 			Font font = new Font("arial", 1, 50);
@@ -175,7 +208,7 @@ public class Menu extends MouseAdapter {
 			g.drawString("Twój wynik:   " + properties.score(), 180, 200);
 			g.setColor(Color.darkGray);
 			g.drawString("Najlepszy wynik:   " + data.returnBestScore()[1], 180, 250);
-			g.drawString("Najlepszy gracz " + data.returnBestScore()[0], 180, 290);
+			g.drawString("Najlepszy gracz: " + data.returnBestScore()[0], 180, 290);
 			if(Integer.parseInt(data.returnBestScore()[1]) == properties.score()){
 				g.setColor(Color.red);
 				g.drawString("GRATULACJE POBI£EŒ REKORD!", 180, 340);
